@@ -1,11 +1,10 @@
-// vercel.json (ejemplo válido)
 {
   "rewrites": [
     {
-      "source": "/api/(.*)",
-      "destination": "/api/index.js"
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ],
-  "redirects": [],
-  "headers": []
+  "cleanUrls": true,
+  "trailingSlash": false
 }
