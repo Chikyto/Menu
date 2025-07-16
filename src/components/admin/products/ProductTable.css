@@ -1,0 +1,123 @@
+.product-table-wrapper {
+  overflow-x: auto;
+  margin-top: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
+  background: #fff;
+  padding: 1rem;
+}
+
+.product-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 800px;
+}
+
+.product-table th,
+.product-table td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+  vertical-align: middle;
+
+}
+
+.product-table th {
+  background-color: #f5f5f5;
+  font-weight: 600;
+  color: #333;
+}
+
+
+
+.input,
+.select {
+  width: 100%;
+  padding: 0.45rem 0.6rem;
+  font-size: 0.95rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.price-input {
+  text-align: right;
+  font-weight: bold;
+}
+
+.badge {
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  display: inline-block;
+}
+
+.badge-category {
+  background-color: #e0f7fa;
+  color: #00796b;
+}
+
+.badge-status.on {
+  background-color: #c8e6c9;
+  color: #2e7d32;
+}
+
+.badge-status.off {
+  background-color: #ffcdd2;
+  color: #c62828;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  vertical-align: middle;
+  gap: 8px; /* Espacio entre botones */
+}
+
+.btn-small {
+  background: none;
+  border: none;
+  padding: 0.25rem;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: transform 0.2s;
+  vertical-align: middle;
+}
+
+.btn-small:hover {
+  transform: scale(1.15);
+  vertical-align: middle;
+}
+
+.btn-edit {
+  color: #1976d2;
+    vertical-align: middle;
+  text-align: center;
+}
+
+.btn-delete {
+  color: #c62828;
+    vertical-align: middle;
+  text-align: center;
+}
+
+.btn-save {
+  color: #388e3c;
+}
+
+.btn-cancel {
+  color: #999;
+}
+
+.action-buttons {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.action-buttons-inner {
+  display: inline-flex;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+}
