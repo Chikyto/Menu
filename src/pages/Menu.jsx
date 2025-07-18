@@ -3,10 +3,12 @@ import React, { useEffect, useState } from "react";
 import Header from "../components/common/Header";
 import MenuContainer from "../components/menu/MenuContainer";
 import { useMenu } from "../hooks/useMenu";
+import { useNavigate } from "react-router-dom";
 
 const Menu = () => {
   const { categories, loading, error, getProductsByCategory } = useMenu();
   const [activeCategory, setActiveCategory] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (categories.length > 0 && !activeCategory) {
@@ -15,7 +17,7 @@ const Menu = () => {
   }, [categories, activeCategory]);
 
   const handleAdminClick = () => {
-    // redirigir a admin o abrir modal
+      navigate("/admin");
   };
 
   return (
