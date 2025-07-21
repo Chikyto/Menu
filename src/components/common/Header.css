@@ -1,3 +1,4 @@
+/* Header.css */
 .header {
   position: sticky;
   top: 0;
@@ -13,14 +14,42 @@
   padding: 0.75rem 0;
 }
 
-.category-nav {
+.category-nav-icons {
+  display: flex;
   overflow-x: auto;
   white-space: nowrap;
- /* scrollbar-width: none; /* Firefox */
+  padding: 10px 0;
 }
 
-.category-nav::-webkit-scrollbar {
- /* display: none; /* Chrome, Safari */
+.category-nav-icons::-webkit-scrollbar {
+  display: none; /* Oculta la barra de desplazamiento en Chrome, Safari */
+}
+
+.category-nav-icons {
+  scrollbar-width: none; /* Oculta la barra de desplazamiento en Firefox */
+}
+
+.category-icon-item {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 10px;
+  cursor: pointer;
+}
+
+.category-icon {
+  font-size: 24px;
+  margin-bottom: 5px;
+}
+
+.category-label {
+  font-size: 12px;
+  text-align: center;
+  word-break: keep-all; /* Evita que el texto se rompa en varias líneas */
+}
+
+.category-icon-item.active {
+  color: #007bff; /* Color para la categoría activa */
 }
 
 .brand .logo {
@@ -41,71 +70,4 @@
   border-radius: 4px;
   cursor: pointer;
   font-size: 0.9rem;
-}
-
-
-/* Header.css */
-.header {
-  background-color: #f8f9fa;
-  padding: 10px 0;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.container {
-  width: 100%;
-  overflow-x: auto; /* Permite el scroll horizontal */
-  white-space: nowrap; /* Evita que los elementos se envuelvan a la siguiente línea */
-}
-
-.header-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 20px;
-}
-
-.brand {
-  text-align: center;
-  flex: 1;
-}
-
-.logo {
-  margin: 0;
-  font-size: 24px;
-}
-
-.tagline {
-  margin: 5px 0 0;
-  font-size: 14px;
-  color: #6c757d;
-}
-
-.category-nav-icons {
-  display: flex;
-  flex-direction: row; /* Asegura que los elementos se dispongan en una fila */
-  padding: 10px 0;
-  overflow-x: auto; /* Permite el scroll horizontal */
-  white-space: nowrap; /* Evita que los elementos se envuelvan a la siguiente línea */
-}
-
-.category-icon-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 0 10px;
-  cursor: pointer;
-}
-
-.category-icon {
-  font-size: 24px;
-  margin-bottom: 5px;
-}
-
-.category-label {
-  font-size: 12px;
-  text-align: center;
-}
-
-.category-icon-item.active {
-  color: #007bff; /* Cambia el color para la categoría activa */
 }
