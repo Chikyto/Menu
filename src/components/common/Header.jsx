@@ -1,11 +1,24 @@
-// src/components/common/Header.jsx
 import React from "react";
-import { Nav } from "react-bootstrap";
 import "./Header.css";
 
+const categoryIcons = {
+  "Entradas": "🍤",
+  "Cazuelas": "🥘",
+  "Cervezas": "🍺",
+  "Bebidas sin alcohol": "🥤",
+  "Pizzas": "🍕",
+  "Sandwiches": "🥪",
+  "Tablas": "🧀",
+  "Platos principales": "🍽️",
+  "Sin TACC": "🚫🌾",
+  "Ensaladas": "🥗",
+  "Postres": "🍰",
+  "Vinos": "🍷",
+  "Tragos": "🍸",
+  "Espirituosos": "🥃",
+};
+
 const Header = ({
-  // showAdminLink = false,
-  // onAdminClick,
   categories = [],
   activeCategory,
   setActiveCategory,
@@ -18,28 +31,25 @@ const Header = ({
             <h1 className="logo">🍺 PROST</h1>
             <p className="tagline">Restaurant & Bar</p>
           </div>
-
-          {/* {showAdminLink && (
-            <button className="admin-btn" onClick={onAdminClick}>
-              Administración
-            </button>
-          )} */}
         </div>
 
         {Array.isArray(categories) && categories.length > 0 && (
-          <Nav fill variant="tabs" className="mb-0 overflow-auto flex-nowrap category-nav">
+          <div className="category-nav-icons">
             {categories.map((category) => (
-              <Nav.Item key={category.id}>
-                <Nav.Link
-                  active={category.id === activeCategory}
-                  onClick={() => setActiveCategory(category.id)}
-                  className="text-nowrap"
-                >
-                  {category.name}
-                </Nav.Link>
-              </Nav.Item>
+              <div
+                key={category.id}
+                className={`category-icon-item ${
+                  category.id === activeCategory ? "active" : ""
+                }`}
+                onClick={() => setActiveCategory(category.id)}
+              >
+                <div className="category-icon">
+                  {categoryIcons[category.name] || "🍽️"}
+                </div>
+                <div className="category-label">{category.name}</div>
+              </div>
             ))}
-          </Nav>
+          </div>
         )}
       </div>
     </header>

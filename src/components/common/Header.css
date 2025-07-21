@@ -44,3 +44,68 @@
 }
 
 
+/* Header.css */
+.header {
+  background-color: #f8f9fa;
+  padding: 10px 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.container {
+  width: 100%;
+  overflow-x: auto; /* Permite el scroll horizontal */
+  white-space: nowrap; /* Evita que los elementos se envuelvan a la siguiente línea */
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.brand {
+  text-align: center;
+  flex: 1;
+}
+
+.logo {
+  margin: 0;
+  font-size: 24px;
+}
+
+.tagline {
+  margin: 5px 0 0;
+  font-size: 14px;
+  color: #6c757d;
+}
+
+.category-nav-icons {
+  display: flex;
+  flex-direction: row; /* Asegura que los elementos se dispongan en una fila */
+  padding: 10px 0;
+  overflow-x: auto; /* Permite el scroll horizontal */
+  white-space: nowrap; /* Evita que los elementos se envuelvan a la siguiente línea */
+}
+
+.category-icon-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 10px;
+  cursor: pointer;
+}
+
+.category-icon {
+  font-size: 24px;
+  margin-bottom: 5px;
+}
+
+.category-label {
+  font-size: 12px;
+  text-align: center;
+}
+
+.category-icon-item.active {
+  color: #007bff; /* Cambia el color para la categoría activa */
+}
