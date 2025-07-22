@@ -8,6 +8,7 @@ const ProductForm = ({ categories, onSave, onAddCategory }) => {
     presentation: "",
     description: "",
     price: "",
+    displayOrder: "",
     available: true,
     categoryId: "",
   });
@@ -64,6 +65,12 @@ const ProductForm = ({ categories, onSave, onAddCategory }) => {
           value={formData.price}
           onChange={(e) => handleChange("price", e.target.value)}
           required
+        />
+
+        <textarea
+          placeholder="Orden de visualización (opcional)"
+          value={formData.displayOrder}
+          onChange={(e) => handleChange("displayOrder", e.target.value)}
         />
 
         <div className="category-select">

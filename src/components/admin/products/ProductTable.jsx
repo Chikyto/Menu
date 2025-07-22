@@ -14,6 +14,7 @@ const ProductTable = ({
   onCancel,
   formatPrice,
 }) => {
+  
   const handleKeyDown = (e) => {
     if (["Enter", "ArrowUp", "ArrowDown"].includes(e.key)) {
       e.preventDefault();
@@ -31,6 +32,7 @@ const ProductTable = ({
             <th>Categoría</th>
             <th>Presentación</th>
             <th>Precio</th>
+            <th>Orden</th>
             <th>Estado</th>
             <th>Acciones</th>
           </tr>
@@ -60,7 +62,9 @@ const ProductTable = ({
                     <Form.Control
                       type="text"
                       value={editingProduct.description || ""}
-                      onChange={(e) => onChangeField("description", e.target.value)}
+                      onChange={(e) =>
+                        onChangeField("description", e.target.value)
+                      }
                     />
                   ) : (
                     product.description
@@ -71,7 +75,9 @@ const ProductTable = ({
                   {isEditing ? (
                     <Form.Select
                       value={editingProduct.categoryId || ""}
-                      onChange={(e) => onChangeField("categoryId", e.target.value)}
+                      onChange={(e) =>
+                        onChangeField("categoryId", e.target.value)
+                      }
                     >
                       <option value="">Seleccionar</option>
                       {categories.map((cat) => (
@@ -90,7 +96,9 @@ const ProductTable = ({
                     <Form.Control
                       type="text"
                       value={editingProduct.presentation || ""}
-                      onChange={(e) => onChangeField("presentation", e.target.value)}
+                      onChange={(e) =>
+                        onChangeField("presentation", e.target.value)
+                      }
                     />
                   ) : (
                     product.presentation
@@ -110,7 +118,19 @@ const ProductTable = ({
                     formatPrice(product.price)
                   )}
                 </td>
-
+                <td>
+                  {isEditing ? (
+                    <Form.Control
+                      type="number"
+                      value={editingProduct.displayOrder || 0}
+                      onChange={(e) =>
+                        onChangeField("displayOrder", parseInt(e.target.value))
+                      }
+                    />
+                  ) : (
+                    product.displayOrder ?? "-"
+                  )}
+                </td>
                 <td>
                   {isEditing ? (
                     <Form.Select

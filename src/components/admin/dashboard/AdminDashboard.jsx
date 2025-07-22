@@ -10,6 +10,7 @@ import Loading from "../../common/Loading";
 import { useAutoLogout } from "../../../hooks/useAutoLogout";
 import { useAdminRouteGuard } from "../../../hooks/useAdminRouteGuard";
 import { Container, Row, Col, Button, Navbar, Nav } from "react-bootstrap";
+import { toast } from "react-toastify";
 
 const AdminDashboard = () => {
   const { categories, products, loading } = useMenu();
@@ -29,7 +30,9 @@ const AdminDashboard = () => {
     if (!isInAdminPanel) {
       logoutAdmin()
         .then(() => {
-          alert("⚠️ Has salido del panel de administración. Sesión finalizada.");
+          alert(
+            "⚠️ Has salido del panel de administración. Sesión finalizada."
+          );
         })
         .catch((error) => {
           console.error("Error cerrando sesión al salir del admin:", error);
@@ -38,6 +41,7 @@ const AdminDashboard = () => {
   }, [location]);
 
   const handleNewProduct = () => navigate("/admin/producto/nuevo");
+  
   const handleLogout = async () => {
     try {
       await logoutAdmin();
@@ -47,20 +51,42 @@ const AdminDashboard = () => {
   };
 
   const handleEditProduct = (product) => setEditingProduct(product);
-  const handleInlineChange = (field, value) => {
-    setEditingProduct((prev) => ({
-      ...prev,
-      [field]: field === "price" ? parseFloat(value) : value,
-    }));
-  };
+
   const handleInlineSave = async () => {
     try {
       await updateProduct(editingProduct.id, editingProduct);
       setEditingProduct(null);
+      toast.success("Producto actualizado correctamente");
     } catch (err) {
       console.error("Error al guardar cambios:", err);
       alert("Error al guardar los cambios");
     }
+  };
+
+  const handleInlineChange = (field, value) => {
+    setEditingProduct((prev) => {
+      const updated = {
+        ...prev,
+        [field]:
+          field === "price" || field === "displayOrder"
+            ? parseFloat(value)
+            : value,
+      };
+
+      // Si cambia displayOrder, actualizar todos los productos con el mismo nombre
+      if (field === "displayOrder") {
+        const sameNameProducts = products.filter(
+          (p) => p.name.toLowerCase() === prev.name.toLowerCase()
+        );
+        sameNameProducts.forEach((p) => {
+          updateProduct(p.id, { ...p, displayOrder: updated.displayOrder });
+        });
+        // alert(
+        //   `Orden actualizado para todas las presentaciones de "${prev.name}"`
+        // );
+      }
+      return updated;
+    });
   };
 
   const handleDeleteProduct = async (productId, productName) => {

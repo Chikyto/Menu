@@ -13,9 +13,11 @@ import ProtectedRoute from "./components/auth/ProtectedRoute"; // TU componente 
 import "./styles/admin/globals.css";
 import { AuthProvider } from "./login/AuthProvider";
 import 'bootstrap/dist/css/bootstrap.min.css';
-//import 'react-select/dist/react-select.css';
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
+  <ToastContainer position="top-center" />
   return (
     <Router>
       <AuthProvider>
