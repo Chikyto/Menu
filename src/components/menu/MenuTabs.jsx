@@ -9,6 +9,9 @@ const iconMap = {
   "Tragos": <Martini size={20} />,
   "Café": <Coffee size={20} />,
   "Pizzas": <Pizza size={20} />,
+  "Vermut": "🥂",
+  "Promos": "🏷️",
+  "Pastas": "🍝",
 };
 
 const MenuTabs = ({ categories, activeCategory, onCategoryChange }) => {
