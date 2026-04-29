@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { uploadProductImage } from "../../../services/storageService";
 import "./ProductForm.css";
 
 const ProductForm = ({ categories, onSave, onAddCategory }) => {
@@ -12,6 +13,9 @@ const ProductForm = ({ categories, onSave, onAddCategory }) => {
     available: true,
     categoryId: "",
   });
+  const [imageFile, setImageFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
+  const [uploading, setUploading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -19,7 +23,14 @@ const ProductForm = ({ categories, onSave, onAddCategory }) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    setImageFile(file);
+    setImagePreview(URL.createObjectURL(file));
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const { name, presentation, price, categoryId } = formData;
 
@@ -28,7 +39,20 @@ const ProductForm = ({ categories, onSave, onAddCategory }) => {
       return;
     }
 
-    onSave(formData); // El manejador guardará esto como un producto
+    let imageUrl = null;
+    if (imageFile) {
+      setUploading(true);
+      try {
+        imageUrl = await uploadProductImage(imageFile, name);
+      } catch {
+        alert("Error al subir la imagen. Revisá las reglas de Firebase Storage.");
+        setUploading(false);
+        return;
+      }
+      setUploading(false);
+    }
+
+    onSave({ ...formData, ...(imageUrl && { imageUrl }) });
     navigate("/admin");
   };
 
@@ -93,6 +117,21 @@ const ProductForm = ({ categories, onSave, onAddCategory }) => {
           </button>
         </div>
 
+        <div className="image-upload">
+          <label className="image-upload-label">
+            Imagen del producto (opcional)
+          </label>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleImageChange}
+            className="image-input"
+          />
+          {imagePreview && (
+            <img src={imagePreview} alt="Vista previa" className="image-preview" />
+          )}
+        </div>
+
         <label className="available-checkbox">
           <input
             type="checkbox"
@@ -103,7 +142,9 @@ const ProductForm = ({ categories, onSave, onAddCategory }) => {
         </label>
 
         <div className="form-actions">
-          <button type="submit" className="save-btn">Guardar</button>
+          <button type="submit" className="save-btn" disabled={uploading}>
+            {uploading ? "Subiendo imagen..." : "Guardar"}
+          </button>
           <button type="button" onClick={() => navigate("/admin")} className="cancel-btn">Cancelar</button>
         </div>
       </form>

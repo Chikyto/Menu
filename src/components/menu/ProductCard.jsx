@@ -16,6 +16,11 @@ const ProductCard = ({ product }) => {
 
   return (
     <div className="product-card">
+      {product.imageUrl && (
+        <div className="product-image">
+          <img src={product.imageUrl} alt={product.name} loading="lazy" />
+        </div>
+      )}
       <div className="product-info">
         <h3 className="product-name">{product.name}</h3>
         {product.description && <p className="product-description">{product.description}</p>}

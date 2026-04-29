@@ -11,8 +11,11 @@ const CategoryGrid = ({ products }) => {
       acc[key] = {
         name: prod.name,
         description: prod.description,
+        imageUrl: prod.imageUrl || null,
         variants: [],
       };
+    } else if (!acc[key].imageUrl && prod.imageUrl) {
+      acc[key].imageUrl = prod.imageUrl;
     }
     acc[key].variants.push({
       id: prod.id,

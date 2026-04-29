@@ -1,7 +1,8 @@
 // ProductTable.jsx
-import React from "react";
-import { Table, Form, Button, Badge, InputGroup } from "react-bootstrap";
-import { FaEdit, FaTrash, FaSave, FaTimes } from "react-icons/fa";
+import React, { useRef, useState } from "react";
+import { Table, Form, Button, Badge } from "react-bootstrap";
+import { FaEdit, FaTrash, FaSave, FaTimes, FaImage } from "react-icons/fa";
+import { uploadProductImage } from "../../../services/storageService";
 
 const ProductTable = ({
   products,
@@ -14,11 +15,28 @@ const ProductTable = ({
   onCancel,
   formatPrice,
 }) => {
-  
+  const [uploading, setUploading] = useState(false);
+  const fileInputRef = useRef(null);
+
   const handleKeyDown = (e) => {
     if (["Enter", "ArrowUp", "ArrowDown"].includes(e.key)) {
       e.preventDefault();
       onInlineSave();
+    }
+  };
+
+  const handleImageChange = async (e) => {
+    const file = e.target.files[0];
+    if (!file || !editingProduct) return;
+    setUploading(true);
+    try {
+      const url = await uploadProductImage(file, editingProduct.name);
+      onChangeField("imageUrl", url);
+    } catch {
+      alert("Error al subir la imagen. Revisá las reglas de Firebase Storage.");
+    } finally {
+      setUploading(false);
+      if (fileInputRef.current) fileInputRef.current.value = "";
     }
   };
 
@@ -27,6 +45,7 @@ const ProductTable = ({
       <Table striped bordered hover responsive>
         <thead>
           <tr>
+            <th>Imagen</th>
             <th>Producto</th>
             <th>Descripción</th>
             <th>Categoría</th>
@@ -45,6 +64,44 @@ const ProductTable = ({
 
             return (
               <tr key={product.id}>
+                <td className="text-center align-middle" style={{ minWidth: 80 }}>
+                  {isEditing ? (
+                    <div className="d-flex flex-column align-items-center gap-1">
+                      {editingProduct.imageUrl && (
+                        <img
+                          src={editingProduct.imageUrl}
+                          alt=""
+                          style={{ width: 48, height: 48, objectFit: "cover", borderRadius: 6 }}
+                        />
+                      )}
+                      <input
+                        ref={fileInputRef}
+                        type="file"
+                        accept="image/*"
+                        style={{ display: "none" }}
+                        onChange={handleImageChange}
+                      />
+                      <Button
+                        variant="outline-secondary"
+                        size="sm"
+                        onClick={() => fileInputRef.current?.click()}
+                        disabled={uploading}
+                        title="Cambiar imagen"
+                      >
+                        {uploading ? "..." : <FaImage />}
+                      </Button>
+                    </div>
+                  ) : (
+                    product.imageUrl
+                      ? <img
+                          src={product.imageUrl}
+                          alt=""
+                          style={{ width: 48, height: 48, objectFit: "cover", borderRadius: 6 }}
+                        />
+                      : <span className="text-muted">—</span>
+                  )}
+                </td>
+
                 <td>
                   {isEditing ? (
                     <Form.Control
@@ -118,6 +175,7 @@ const ProductTable = ({
                     formatPrice(product.price)
                   )}
                 </td>
+
                 <td>
                   {isEditing ? (
                     <Form.Control
@@ -131,6 +189,7 @@ const ProductTable = ({
                     product.displayOrder ?? "-"
                   )}
                 </td>
+
                 <td>
                   {isEditing ? (
                     <Form.Select
@@ -157,6 +216,7 @@ const ProductTable = ({
                         size="sm"
                         className="me-2"
                         onClick={onInlineSave}
+                        disabled={uploading}
                       >
                         <FaSave />
                       </Button>

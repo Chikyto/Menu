@@ -55,6 +55,16 @@ const AdminDashboard = () => {
   const handleInlineSave = async () => {
     try {
       await updateProduct(editingProduct.id, editingProduct);
+
+      if (editingProduct.imageUrl) {
+        const sameNameProducts = products.filter(
+          (p) => p.name.toLowerCase() === editingProduct.name.toLowerCase() && p.id !== editingProduct.id
+        );
+        await Promise.all(
+          sameNameProducts.map((p) => updateProduct(p.id, { imageUrl: editingProduct.imageUrl }))
+        );
+      }
+
       setEditingProduct(null);
       toast.success("Producto actualizado correctamente");
     } catch (err) {
