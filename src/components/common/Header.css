@@ -3,8 +3,11 @@
   position: sticky;
   top: 0;
   z-index: 1000;
-  background-color: white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
 }
 
 .header-content {
@@ -55,12 +58,23 @@
 .brand .logo {
   margin: 0;
   font-size: 1.5rem;
+  color: white;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.5);
 }
 
 .tagline {
   margin: 0;
   font-size: 0.9rem;
-  color: #555;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.category-label {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.category-icon-item.active .category-label {
+  color: white;
+  font-weight: 700;
 }
 
 .admin-btn {
