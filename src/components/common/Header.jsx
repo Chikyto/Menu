@@ -1,22 +1,6 @@
 import React from "react";
 import "./Header.css";
-
-const categoryIcons = {
-  "Entradas": "🍟",
-  "Individuales": "🥜",
-  "Cervezas": "🍺",
-  "Bebidas sin alcohol": "🥤",
-  "Pizzas": "🍕",
-  "Sandwiches": "🍔",
-  "Tablas": "🧀",
-  "Platos principales": "🍛",
-  "Sin TACC": "🚫🌾",
-  "Ensaladas": "🥗",
-  "Postres": "🍰",
-  "Vinos": "🍷",
-  "Tragos": "🍸",
-  "Espirituosos": "🥃",
-};
+import categoryIcons from "../../utils/categoryIcons";
 
 const Header = ({
   categories = [],

@@ -43,7 +43,7 @@ const ProductForm = ({ categories, onSave, onAddCategory }) => {
     if (imageFile) {
       setUploading(true);
       try {
-        imageUrl = await uploadProductImage(imageFile, name);
+        imageUrl = await uploadProductImage(imageFile);
       } catch {
         alert("Error al subir la imagen. Revisá las reglas de Firebase Storage.");
         setUploading(false);

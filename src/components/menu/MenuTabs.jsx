@@ -1,18 +1,7 @@
 // src/components/menu/MenuTabs.jsx
 import React from "react";
-import { Beer, Utensils, Martini, Coffee, Pizza } from 'lucide-react';
-import "./MenuTabs.css"; // Asegúrate de tener un CSS para los estilos de las pestañas
-
-const iconMap = {
-  "Cervezas": <Beer size={20} />,
-  "Comidas": <Utensils size={20} />,
-  "Tragos": <Martini size={20} />,
-  "Café": <Coffee size={20} />,
-  "Pizzas": <Pizza size={20} />,
-  "Vermut": "🥂",
-  "Promos": "🏷️",
-  "Pastas": "🍝",
-};
+import categoryIcons from "../../utils/categoryIcons";
+import "./MenuTabs.css";
 
 const MenuTabs = ({ categories, activeCategory, onCategoryChange }) => {
   return (
@@ -23,7 +12,7 @@ const MenuTabs = ({ categories, activeCategory, onCategoryChange }) => {
           className={`tab-button ${cat.id === activeCategory ? "active" : ""}`}
           onClick={() => onCategoryChange(cat.id)}
         >
-          <span className="tab-icon">{iconMap[cat.name] || "🍽️"}</span>
+          <span className="tab-icon">{categoryIcons[cat.name] || "🍽️"}</span>
           <span className="tab-label">{cat.name}</span>
         </button>
       ))}

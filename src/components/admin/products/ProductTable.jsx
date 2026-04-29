@@ -30,7 +30,7 @@ const ProductTable = ({
     if (!file || !editingProduct) return;
     setUploading(true);
     try {
-      const url = await uploadProductImage(file, editingProduct.name);
+      const url = await uploadProductImage(file);
       onChangeField("imageUrl", url);
     } catch {
       alert("Error al subir la imagen. Revisá las reglas de Firebase Storage.");
